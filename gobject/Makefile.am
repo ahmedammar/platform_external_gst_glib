@@ -192,14 +192,19 @@ CLEANFILES += $(gen_sources)
 
 if CROSS_COMPILING
   glib_genmarshal=$(GLIB_GENMARSHAL)
+  glib_genmarshal_dep=
+  cc_programs= 
+  noinst_cc_programs=
 else
   glib_genmarshal=./glib-genmarshal
+  glib_genmarshal_dep=glib-genmarshal$(EXEEXT)
+  cc_programs=gobject-query glib-genmarshal
+  noinst_cc_programs=testgobject
 endif
 
 gmarshal.h: stamp-gmarshal.h
 	@true
-stamp-gmarshal.h: @REBUILD@ gmarshal.list glib-genmarshal$(EXEEXT)
-	$(MAKE) glib-genmarshal$(EXEEXT)
+stamp-gmarshal.h: @REBUILD@ gmarshal.list $(glib_genmarshal_dep)
 	$(AM_V_GEN) echo "#ifndef __G_MARSHAL_H__" > xgen-gmh \
 	&& echo "#define __G_MARSHAL_H__" >> xgen-gmh \
 	&& $(glib_genmarshal) --nostdinc --prefix=g_cclosure_marshal $(srcdir)/gmarshal.list --header >> xgen-gmh \
@@ -226,12 +231,21 @@ gsignal.lo: gmarshal.c
 libgobjectinclude_HEADERS = $(gobject_target_headers)
 libgobject_2_0_la_SOURCES = $(gobject_target_sources)
 
+Android.mk: Makefile.am $(BUILT_SOURCES)
+	androgenizer -:PROJECT glib -:SHARED libgobject-2.0 -:TAGS eng debug \
+	 -:REL_TOP $(top_srcdir) -:ABS_TOP $(abs_top_srcdir) \
+	 -:SOURCES $(libgobject_2_0_la_SOURCES) \
+	 -:CFLAGS $(DEFS) $(DEFAULT_INCLUDES) $(CFLAGS) \
+	 -:CPPFLAGS $(DEFAULT_INCLUDES) $(CPPFLAGS) $(AM_CPPFLAGS) \
+	 -:LDFLAGS $(libgobject_2_0_la_LIBADD) $(libgobject_2_0_la_LDFLAGS) \
+	> $@
+
 #
 # programs to compile and install
-#
-bin_PROGRAMS = gobject-query glib-genmarshal
+bin_PROGRAMS = $(cc_programs)
+noinst_PROGRAMS = $(noinst_cc_programs)
 bin_SCRIPTS = glib-mkenums
-noinst_PROGRAMS = testgobject
+
 # source files
 gobject_query_SOURCES = gobject-query.c
 glib_genmarshal_SOURCES = glib-genmarshal.c

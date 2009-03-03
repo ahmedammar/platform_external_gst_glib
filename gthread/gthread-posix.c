@@ -155,6 +155,7 @@ g_thread_impl_init(void)
  if (sysconf (_SC_MONOTONIC_CLOCK) >= 0)
    posix_clock = CLOCK_MONOTONIC;
  else
+   posix_clock = CLOCK_REALTIME;
 #else
    /* there is no CLOCK_MONOTONIC in Bionic C, replace it with CLOCK_REALTIME */
    posix_clock = CLOCK_REALTIME;

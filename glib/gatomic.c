@@ -882,6 +882,7 @@ g_atomic_pointer_compare_and_exchange (volatile gpointer G_GNUC_MAY_ALIAS *atomi
 
 #ifdef DEFINE_WITH_MUTEXES
 /* We have to use the slow, but safe locking method */
+#include "gthread.h"
 static GMutex *g_atomic_mutex; 
 
 /**

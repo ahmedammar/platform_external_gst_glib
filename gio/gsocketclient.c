@@ -24,6 +24,7 @@
 
 #include "config.h"
 #include "gsocketclient.h"
+#include "gtlscertificate.h"
 
 #include <stdlib.h>
 #include <string.h>

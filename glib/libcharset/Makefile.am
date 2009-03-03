@@ -54,6 +54,16 @@ charset.alias: config.charset
 	$(SHELL) $(srcdir)/config.charset '@host@' > t-$@
 	mv t-$@ $@
 
+Android.mk: Makefile.am
+	androgenizer -:PROJECT glib -:STATIC libcharset -:TAGS eng debug \
+	 -:REL_TOP $(top_srcdir) -:ABS_TOP $(abs_top_srcdir) \
+	 -:SOURCES $(libcharset_la_SOURCES) \
+	 -:CFLAGS $(DEFS) $(INCLUDES) $(GLIB_DEBUG_FLAGS) \
+	  $(CFLAGS) \
+	 -:CPPFLAGS $(AM_CPPFLAGS) $(CPPFLAGS) \
+	> $@
+
+
 all-local: ref-add.sed ref-del.sed charset.alias
 
 SUFFIXES = .sed .sin

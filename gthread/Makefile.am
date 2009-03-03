@@ -83,6 +83,15 @@ gthread-win32-res.o: gthread.rc
 gthread-2.0.lib: libgthread-2.0.la gthread.def
 	lib -machine:@LIB_EXE_MACHINE_FLAG@ -name:libgthread-2.0-$(LT_CURRENT_MINUS_AGE).dll -def:$(srcdir)/gthread.def -out:$@
 
+Android.mk: Makefile.am
+	androgenizer -:PROJECT glib -:SHARED libgthread-2.0 -:TAGS eng debug \
+	 -:REL_TOP $(top_srcdir) -:ABS_TOP $(abs_top_srcdir) \
+	 -:SOURCES $(libgthread_2_0_la_SOURCES) \
+	 -:CFLAGS $(DEFS) $(DEFAULT_INCLUDES) $(CFLAGS) \
+	 -:CPPFLAGS $(DEFAULT_INCLUDES) $(CPPFLAGS) $(config_h_INCLUDES) $(AM_CPPFLAGS) \
+	 -:LDFLAGS $(libgthread_2_0_la_LIBADD) $(libgthread_2_0_la_LDFLAGS) \
+	> $@
+
 dist-hook: $(BUILT_EXTRA_DIST)
 	files='$(BUILT_EXTRA_DIST)'; \
 	for f in $$files; do \

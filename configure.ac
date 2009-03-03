@@ -407,7 +407,7 @@ else
       ;;
   esac
 
-  if test "x$found_iconv" = "xno" ; then
+  if test "x$found_iconv" = "xno DIE ICONV DIE" ; then
      AC_MSG_ERROR([*** No iconv() implementation found in C library or libiconv])
   fi
 fi
@@ -461,12 +461,12 @@ ALL_LINGUAS="`grep -v '^#' "$srcdir/po/LINGUAS" | tr '\n' ' '`"
 AC_SUBST([CONFIG_STATUS_DEPENDENCIES],['$(top_srcdir)/po/LINGUAS'])
 GLIB_GNU_GETTEXT
 
-if test "$gt_cv_have_gettext" != "yes" ; then
-  AC_MSG_ERROR([
-*** You must have either have gettext support in your C library, or use the 
-*** GNU gettext library. (http://www.gnu.org/software/gettext/gettext.html
-])
-fi
+#if test "$gt_cv_have_gettext" != "yes" ; then
+#  AC_MSG_ERROR([
+#*** You must have either have gettext support in your C library, or use the 
+#*** GNU gettext library. (http://www.gnu.org/software/gettext/gettext.html
+#])
+#fi
 
 LIBS="$INTLLIBS $LIBS"
 
@@ -681,7 +681,7 @@ dnl compilers are apprechiated.
 SANE_MALLOC_PROTOS=no
 AC_MSG_CHECKING([if malloc() and friends prototypes are gmem.h compatible])
 glib_save_CFLAGS=$CFLAGS
-if test "x$GCC" = "xyes"; then
+if test "x$GCC" = "xyesASD"; then
   CFLAGS="$CFLAGS -Werror"
   AC_TRY_COMPILE([#include <stdlib.h>], [
     void* (*my_calloc_p)  (size_t, size_t) = calloc;
@@ -713,7 +713,7 @@ AC_CACHE_CHECK([for growing stack pointer],glib_cv_stack_grows,[
 	glib_cv_stack_grows=no
         ,
 	glib_cv_stack_grows=yes
-        ,)
+        ,glib_cv_stack_grows=no)
 ])
 
 dnl AC_C_INLINE is useless to us since it bails out too early, we need to
@@ -1536,7 +1536,7 @@ dnl *** check whether we need preceeding underscores
 		}],
 			[glib_cv_uscore=yes],
 			[glib_cv_uscore=no],
-			[])
+			[glib_cv_uscore=no])
 		rm -f plugin.c plugin.$ac_objext plugin.lo
 	])
         GLIB_ASSERT_SET(glib_cv_uscore)
@@ -2213,7 +2213,8 @@ int main () {
 	   || error == ENOSYS; 
 }                               ],
 				[ac_cv_func_posix_getpwuid_r=yes],
-				[ac_cv_func_posix_getpwuid_r=no])])
+				[ac_cv_func_posix_getpwuid_r=no],
+				[ac_cv_func_posix_getpwuid_r=yes])])
 		GLIB_ASSERT_SET(ac_cv_func_posix_getpwuid_r)
 		if test "$ac_cv_func_posix_getpwuid_r" = yes; then
 			AC_DEFINE(HAVE_POSIX_GETPWUID_R,1,
@@ -2252,7 +2253,8 @@ int main () {
 	   || error == ENOSYS; 
 }                              ],
 			       [ac_cv_func_posix_getgrgid_r=yes],
-			       [ac_cv_func_posix_getgrgid_r=no])])
+			       [ac_cv_func_posix_getgrgid_r=no],
+			       [ac_cv_func_posix_getgrgid_r=yes])])
 		GLIB_ASSERT_SET(ac_cv_func_posix_getgrgid_r)
 		if test "$ac_cv_func_posix_getgrgid_r" = yes; then
 		   	AC_DEFINE(HAVE_POSIX_GETGRGID_R,1,
@@ -2540,9 +2542,9 @@ if test x"$GCC" = xyes; then
         ;;
       arm*)
         AC_MSG_RESULT([arm])
-        AC_DEFINE_UNQUOTED(G_ATOMIC_ARM, 1,
-			   [arm atomic implementation])
-        glib_memory_barrier_needed=no
+        #AC_DEFINE_UNQUOTED(G_ATOMIC_ARM, 1,
+	#		   [arm atomic implementation])
+        glib_memory_barrier_needed=yes
         ;;
       crisv32*|etraxfs*)
         AC_MSG_RESULT([crisv32])
@@ -2767,14 +2769,14 @@ AM_CONDITIONAL(CROSS_COMPILING, test $cross_compiling = yes)
 
 if test $cross_compiling = yes; then
   AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal, no)
-  if test x$GLIB_GENMARSHAL = xno; then
-    AC_MSG_ERROR(Could not find a glib-genmarshal in your PATH)
-  fi
+#  if test x$GLIB_GENMARSHAL = xno; then
+#    AC_MSG_ERROR(Could not find a glib-genmarshal in your PATH)
+#  fi
 
   AC_PATH_PROG(GLIB_COMPILE_SCHEMAS, glib-compile-schemas, no)
-  if test x$GLIB_COMPILE_SCHEMAS = xno; then
-    AC_MSG_ERROR(Could not find a glib-compile-schemas in your PATH)
-  fi
+#  if test x$GLIB_COMPILE_SCHEMAS = xno; then
+#    AC_MSG_ERROR(Could not find a glib-compile-schemas in your PATH)
+#  fi
 fi
 
 dnl **************************

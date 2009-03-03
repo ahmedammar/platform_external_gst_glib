@@ -1069,10 +1069,12 @@ lookup_uid_data (uid_t uid)
 {
   UidData *data;
   char buffer[4096];
+#if HAVE_PWD_H
   struct passwd pwbuf;
   struct passwd *pwbufp;
   char *gecos, *comma;
-  
+#endif
+
   if (uid_cache == NULL)
     uid_cache = g_hash_table_new_full (NULL, NULL, NULL, (GDestroyNotify)uid_data_free);
 
@@ -1083,6 +1085,7 @@ lookup_uid_data (uid_t uid)
 
   data = g_new0 (UidData, 1);
 
+#if HAVE_PWD_H
 #if defined(HAVE_POSIX_GETPWUID_R)
   getpwuid_r (uid, &pwbuf, buffer, sizeof(buffer), &pwbufp);
 #elif defined(HAVE_NONPOSIX_GETPWUID_R)
@@ -1106,6 +1109,7 @@ lookup_uid_data (uid_t uid)
 	  data->real_name = convert_pwd_string_to_utf8 (gecos);
 	}
     }
+#endif
 
   /* Default fallbacks */
   if (data->real_name == NULL)

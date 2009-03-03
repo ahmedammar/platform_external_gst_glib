@@ -18,5 +18,11 @@ libgnulib_la_SOURCES = 	\
 	printf.h \
 	g-gnulib.h
 
+Android.mk: Makefile.am
+	androgenizer -:PROJECT glib -:STATIC libgnulib -:TAGS eng debug \
+	 -:REL_TOP $(top_srcdir) -:ABS_TOP $(abs_top_srcdir) \
+	 -:SOURCES $(libgnulib_la_SOURCES) \
+	 -:CFLAGS $(DEF) $(CFLAGS) $(INCLUDES) \
+	> $@
 
 EXTRA_DIST += makefile.msc

@@ -94,6 +94,17 @@ gmodule-win32-res.o: gmodule.rc
 gmodule-2.0.lib: libgmodule-2.0.la gmodule.def
 	lib -machine:@LIB_EXE_MACHINE_FLAG@ -name:libgmodule-2.0-$(LT_CURRENT_MINUS_AGE).dll -def:gmodule.def -out:$@
 
+Android.mk: Makefile.am
+	androgenizer -:PROJECT glib -:SHARED libgmodule-2.0 -:TAGS eng debug \
+	 -:REL_TOP $(top_srcdir) -:ABS_TOP $(abs_top_srcdir) \
+	 -:SOURCES $(libgmodule_2_0_la_SOURCES) \
+	 -:CFLAGS $(DEFS) $(AM_CFLAGS) $(INCLUDES) $(GLIB_DEBUG_FLAGS) \
+	  $(CFLAGS) \
+	 -:CPPFLAGS $(CPPFLAGS) $(config_h_INCLUDES) $(AM_CPPFLAGS) \
+	 -:LDFLAGS $(libgmodule_2_0_la_LIBADD) -ldl \
+	> $@
+
+
 .PHONY: files release
 
 files:

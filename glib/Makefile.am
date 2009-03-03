@@ -342,6 +342,18 @@ libglib_2_0_la_LDFLAGS = $(GLIB_LINK_FLAGS) \
 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
 	-export-dynamic $(no_undefined) $(export_symbols)
 
+Android.mk: Makefile.am $(BUILT_SOURCES)
+	androgenizer -:PROJECT glib -:SHARED libglib-2.0 -:TAGS eng debug \
+	 -:REL_TOP $(top_srcdir) -:ABS_TOP $(abs_top_srcdir) \
+	 -:SOURCES $(libglib_2_0_la_SOURCES) giounix.c gspawn.c \
+	 -:CFLAGS $(DEFS) $(DEFAULT_INCLUDES) $(AM_CFLAGS) $(INCLUDES) $(GLIB_DEBUG_FLAGS) \
+	  $(CFLAGS) -DG_BIT_LOCK_FORCE_FUTEX_EMULATION \
+	 -:CPPFLAGS $(DEFAULT_INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) -I$$\(GLIB_TOP\) \
+	 -:LDFLAGS $(libglib_2_0_la_LIBADD) \
+	 -:SUBDIR glib/gnulib glib/libcharset \
+	 -:LIBFILTER_STATIC gnulib charset \
+	> $@
+
 INSTALL_PROGS=
 
 if ENABLE_DTRACE

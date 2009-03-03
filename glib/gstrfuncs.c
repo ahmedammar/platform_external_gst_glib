@@ -3160,7 +3160,11 @@ _g_dgettext_should_translate (void)
       const char *default_domain     = textdomain (NULL);
       const char *translator_comment = gettext ("");
 #ifndef G_OS_WIN32
+#ifdef HAVE_LOCALE_H
       const char *translate_locale   = setlocale (LC_MESSAGES, NULL);
+#else
+      const char *translate_locale = "C";
+#endif
 #else
       const char *translate_locale   = g_win32_getlocale ();
 #endif

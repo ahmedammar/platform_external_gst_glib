@@ -15,6 +15,7 @@ Makefile
 *.gcov
 *.sourcefiles
 *.stp
+Android.mk
 
 # autofoo stuff here
 compile
