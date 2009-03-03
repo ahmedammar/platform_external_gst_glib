@@ -24,6 +24,11 @@
 
 #include <libintl.h>
 #include <string.h>
+#ifdef USE_LIBICONV_GNU
+/* No libicon and libintl in Android, so remove libintl with libicon
+ */
+#include <libintl.h>
+#endif /* USE_LIBICONV_GNU */
 
 #define  _(String) gettext (String)
 #define Q_(String) g_dpgettext (NULL, String, 0)
