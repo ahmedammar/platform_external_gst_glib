@@ -22,8 +22,6 @@
  * MT safe
  */
 
-#include "config.h"
-
 #include <string.h>
 
 #include "gparamspecs.h"
