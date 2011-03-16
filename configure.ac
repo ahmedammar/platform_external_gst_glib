@@ -605,7 +605,7 @@ main (int argc, char **argv)
     return 0;
   else
     return 1;
-}]],[have_qsort_r=yes],[have_qsort_r=no])
+}]],[have_qsort_r=yes],[have_qsort_r=no],[have_qsort_r=no])
 
 if test $have_qsort_r = yes ; then
   AC_MSG_RESULT([yes])
