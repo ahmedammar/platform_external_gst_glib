@@ -347,7 +347,7 @@ Android.mk: Makefile.am $(BUILT_SOURCES)
 	 -:REL_TOP $(top_srcdir) -:ABS_TOP $(abs_top_srcdir) \
 	 -:SOURCES $(libglib_2_0_la_SOURCES) giounix.c gspawn.c \
 	 -:CFLAGS $(DEFS) $(DEFAULT_INCLUDES) $(AM_CFLAGS) $(INCLUDES) $(GLIB_DEBUG_FLAGS) \
-	  $(CFLAGS) -DG_BIT_LOCK_FORCE_FUTEX_EMULATION \
+	  $(CFLAGS) -DG_BIT_LOCK_FORCE_FUTEX_EMULATION -DANDROID_STUB \
 	 -:CPPFLAGS $(DEFAULT_INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) -I$$\(GLIB_TOP\) \
 	 -:LDFLAGS $(libglib_2_0_la_LIBADD) \
 	 -:SUBDIR glib/gnulib glib/libcharset \

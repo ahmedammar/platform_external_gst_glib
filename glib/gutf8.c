@@ -565,6 +565,7 @@ g_get_charset (G_CONST_RETURN char **charset)
       g_static_private_set (&cache_private, cache, charset_cache_free);
     }
 
+#ifndef ANDROID_STUB
   raw = _g_locale_charset_raw ();
   
   if (!(cache->raw && strcmp (cache->raw, raw) == 0))
@@ -577,6 +578,10 @@ g_get_charset (G_CONST_RETURN char **charset)
       cache->is_utf8 = g_utf8_get_charset_internal (raw, &new_charset);
       cache->charset = g_strdup (new_charset);
     }
+#else
+  cache->charset = g_strdup("UTF-8");
+  cache->is_utf8 = TRUE;
+#endif
 
   if (charset)
     *charset = cache->charset;
