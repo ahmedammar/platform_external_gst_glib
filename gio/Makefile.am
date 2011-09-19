@@ -6,6 +6,16 @@ SUBDIRS=
 
 if OS_UNIX
 SUBDIRS += libasyncns xdgmime
+subdir_sources =				\
+		libasyncns/asyncns.c 		\
+		xdgmime/xdgmime.c 		\
+		xdgmime/xdgmimealias.c		\
+		xdgmime/xdgmimecache.c		\
+		xdgmime/xdgmimeglob.c 		\
+		xdgmime/xdgmimeicon.c		\
+		xdgmime/xdgmimeint.c 		\
+		xdgmime/xdgmimemagic.c		\
+		xdgmime/xdgmimeparent.c
 endif
 
 if OS_WIN32_AND_DLL_COMPILATION
@@ -185,6 +195,15 @@ if HAVE_INOTIFY
 SUBDIRS += inotify
 platform_libadd += inotify/libinotify.la
 platform_deps += inotify/libinotify.la
+inotify_sources =		\
+	inotify/inotify-kernel.c 	\
+	inotify/inotify-sub.c 		\
+	inotify/inotify-path.c 		\
+	inotify/inotify-missing.c 	\
+	inotify/inotify-helper.c 	\
+	inotify/inotify-diag.c		\
+	inotify/ginotifyfilemonitor.c	\
+	inotify/ginotifydirectorymonitor.c
 endif
 
 if HAVE_FEN
@@ -402,6 +421,8 @@ libgio_2_0_la_SOURCES =		\
 	$(gdbus_sources) 	\
 	$(local_sources) 	\
 	$(marshal_sources) 	\
+	$(subdir_sources)	\
+	$(inotify_sources)	\
 	$(NULL)
 
 EXTRA_DIST += strinfo.c
@@ -412,7 +433,6 @@ libgio_2_0_la_LIBADD = \
 	$(top_builddir)/glib/libglib-2.0.la 		\
 	$(top_builddir)/gobject/libgobject-2.0.la 	\
 	$(top_builddir)/gmodule/libgmodule-2.0.la 	\
-	$(platform_libadd) 				\
 	$(ZLIB_LIBS)					\
 	$(SELINUX_LIBS) 				\
 	$(GLIB_LIBS) 					\
@@ -595,7 +615,7 @@ Android.mk: Makefile.am
 	androgenizer -:PROJECT glib -:SHARED libgio-2.0 -:TAGS eng debug \
 	 -:SOURCES $(libgio_2_0_la_SOURCES) \
 	 -:CFLAGS $(DEFS) $(CFLAGS) \
-	 -:CPPFLAGS $(CPPFLAGS) $(AM_CPPFLAGS) \
+	 -:CPPFLAGS $(CPPFLAGS) $(AM_CPPFLAGS) -DXDG_PREFIX=_gio_xdg\
 	 -:LDFLAGS $(libgio_2_0_la_LIBADD) $(libgio_2_0_la_LDFLAGS) \
 	> $@
 

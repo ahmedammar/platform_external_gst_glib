@@ -446,7 +446,7 @@ g_ascii_strtod (const gchar *nptr,
 
   fail_pos = NULL;
 
-#ifdef HAVE_LOCALE_H  
+#if defined(HAVE_LOCALE_H) && !defined(ANDROID)
   locale_data = localeconv ();
   decimal_point = locale_data->decimal_point;
 #else
@@ -668,7 +668,7 @@ g_ascii_formatd (gchar       *buffer,
 
   _g_snprintf (buffer, buf_len, format, d);
 
-#ifdef HAVE_LOCALE_H
+#ifdef defined(HAVE_LOCALE_H) && !defined(ANDROID)
   locale_data = localeconv ();
   decimal_point = locale_data->decimal_point;
 #else

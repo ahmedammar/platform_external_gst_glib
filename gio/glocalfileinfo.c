@@ -1099,7 +1099,11 @@ lookup_uid_data (uid_t uid)
       if (pwbufp->pw_name != NULL && pwbufp->pw_name[0] != 0)
 	data->user_name = convert_pwd_string_to_utf8 (pwbufp->pw_name);
 
+#ifdef ANDROID
+      gecos = NULL;
+#else
       gecos = pwbufp->pw_gecos;
+#endif
 
       if (gecos)
 	{
@@ -1173,7 +1177,7 @@ lookup_gid_name (gid_t gid)
   if (name)
     return name;
 
-#if defined (HAVE_POSIX_GETGRGID_R)
+#if defined (HAVE_POSIX_GETGRGID_R) && !defined (ANDROID)
   getgrgid_r (gid, &gbuf, buffer, sizeof(buffer), &gbufp);
 #elif defined (HAVE_NONPOSIX_GETGRGID_R)
   gbufp = getgrgid_r (gid, &gbuf, buffer, sizeof(buffer));

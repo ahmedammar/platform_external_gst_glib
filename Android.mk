@@ -70,7 +70,7 @@ CONFIGURE_TARGETS += glib-configure
 -include $(glib_TOP)/gmodule/Android.mk
 -include $(glib_TOP)/gthread/Android.mk
 -include $(glib_TOP)/gobject/Android.mk
-#-include $(glib_TOP)/gio/Android.mk
+-include $(glib_TOP)/gio/Android.mk
 
 
 # Unfortunately, we can't really build executables with the NDK, can we? FIXME:

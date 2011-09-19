@@ -42,6 +42,9 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#ifdef ANDROID
+#undef HAVE_PWD_H
+#endif
 #ifdef HAVE_PWD_H
 #include <pwd.h>
 #endif

@@ -22,7 +22,6 @@
 
 #include <glib.h>
 
-#include <libintl.h>
 #include <string.h>
 #ifdef USE_LIBICONV_GNU
 /* No libicon and libintl in Android, so remove libintl with libicon
