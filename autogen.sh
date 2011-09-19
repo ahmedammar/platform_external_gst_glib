@@ -13,8 +13,8 @@ FILE=glib/glib.h
 DIE=0
 
 have_libtool=false
-if libtoolize --version < /dev/null > /dev/null 2>&1 ; then
-	libtool_version=`libtoolize --version |
+if glibtoolize --version < /dev/null > /dev/null 2>&1 ; then
+	libtool_version=`glibtoolize --version |
 			 head -1 |
 			 sed -e 's/^\(.*\)([^)]*)\(.*\)$/\1\2/g' \
 			     -e 's/^[^0-9]*\([0-9.][0-9.]*\).*/\1/'`
@@ -93,7 +93,7 @@ touch README INSTALL
 
 $ACLOCAL $ACLOCAL_FLAGS || exit $?
 
-libtoolize --force || exit $?
+glibtoolize --force || exit $?
 gtkdocize || exit $?
 
 autoheader || exit $?
