@@ -600,18 +600,18 @@ CLEANFILES = 			\
 
 gioenumtypes.h: $(gio_headers) gioenumtypes.h.template
 	$(AM_V_GEN) ( top_builddir=`cd $(top_builddir) && pwd`; \
-	  cd $(srcdir) && $$top_builddir/gobject/glib-mkenums --template gioenumtypes.h.template $(gio_headers) ) > \
+	  cd $(srcdir) && glib-mkenums --template gioenumtypes.h.template $(gio_headers) ) > \
 	    gioenumtypes.h.tmp && mv gioenumtypes.h.tmp gioenumtypes.h
 
 gioenumtypes.c: $(gio_headers) gioenumtypes.c.template
 	$(AM_V_GEN) ( top_builddir=`cd $(top_builddir) && pwd`; \
-	  cd $(srcdir) && $$top_builddir/gobject/glib-mkenums --template gioenumtypes.c.template $(gio_headers) ) > \
+	  cd $(srcdir) && glib-mkenums --template gioenumtypes.c.template $(gio_headers) ) > \
 	    gioenumtypes.c.tmp && mv gioenumtypes.c.tmp gioenumtypes.c
 
 gio-2.0.lib: libgio-2.0.la gio.def
 	lib -machine:@LIB_EXE_MACHINE_FLAG@ -name:libgio-2.0-$(LT_CURRENT_MINUS_AGE).dll -def:gio.def -out:$@
 
-Android.mk: Makefile.am
+Android.mk: Makefile.am gioenumtypes.h gioenumtypes.c gio-marshal.c
 	androgenizer -:PROJECT glib -:SHARED libgio-2.0 -:TAGS eng debug \
 	 -:SOURCES $(libgio_2_0_la_SOURCES) \
 	 -:CFLAGS $(DEFS) $(CFLAGS) \
