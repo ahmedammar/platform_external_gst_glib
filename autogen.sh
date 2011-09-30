@@ -12,9 +12,16 @@ FILE=glib/glib.h
 
 DIE=0
 
+unamestr=`uname`
+if [[ "$unamestr" == 'Linux' ]]; then
+    LIBTOOLIZE='libtoolize'
+elif [[ "$unamestr" == 'Darwin' ]]; then
+    LIBTOOLIZE='glibtoolize'
+fi
+
 have_libtool=false
-if glibtoolize --version < /dev/null > /dev/null 2>&1 ; then
-	libtool_version=`glibtoolize --version |
+if $LIBTOOLIZE --version < /dev/null > /dev/null 2>&1 ; then
+	libtool_version=`$LIBTOOLIZE --version |
 			 head -1 |
 			 sed -e 's/^\(.*\)([^)]*)\(.*\)$/\1\2/g' \
 			     -e 's/^[^0-9]*\([0-9.][0-9.]*\).*/\1/'`
@@ -93,7 +100,7 @@ touch README INSTALL
 
 $ACLOCAL $ACLOCAL_FLAGS || exit $?
 
-glibtoolize --force || exit $?
+$LIBTOOLIZE --force || exit $?
 gtkdocize || exit $?
 
 autoheader || exit $?

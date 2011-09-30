@@ -22,7 +22,6 @@ glib-configure-real:
 	ac_cv_header_locale_h=no \
 	glib_cv_langinfo_codeset=no \
 	$(abspath $(glib_TOP))/$(CONFIGURE) \
-	--build=i686-apple-darwin \
 	--host=arm-linux-androideabi \
 	--prefix=/system \
 	--enable-included-printf=yes \
