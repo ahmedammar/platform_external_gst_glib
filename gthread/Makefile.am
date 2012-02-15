@@ -84,7 +84,7 @@ gthread-2.0.lib: libgthread-2.0.la gthread.def
 	lib -machine:@LIB_EXE_MACHINE_FLAG@ -name:libgthread-2.0-$(LT_CURRENT_MINUS_AGE).dll -def:$(srcdir)/gthread.def -out:$@
 
 Android.mk: Makefile.am
-	androgenizer -:PROJECT glib -:SHARED libgthread-2.0 -:TAGS user eng debug \
+	androgenizer -:PROJECT glib -:SHARED libgthread-2.0 -:TAGS optional eng debug \
 	 -:REL_TOP $(top_srcdir) -:ABS_TOP $(abs_top_srcdir) \
 	 -:SOURCES $(libgthread_2_0_la_SOURCES) \
 	 -:CFLAGS $(DEFS) $(DEFAULT_INCLUDES) $(CFLAGS) \

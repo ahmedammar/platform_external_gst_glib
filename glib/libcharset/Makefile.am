@@ -55,7 +55,7 @@ charset.alias: config.charset
 	mv t-$@ $@
 
 Android.mk: Makefile.am
-	androgenizer -:PROJECT glib -:STATIC libcharset -:TAGS user eng debug \
+	androgenizer -:PROJECT glib -:STATIC libcharset -:TAGS optional eng debug \
 	 -:REL_TOP $(top_srcdir) -:ABS_TOP $(abs_top_srcdir) \
 	 -:SOURCES $(libcharset_la_SOURCES) \
 	 -:CFLAGS $(DEFS) $(INCLUDES) $(GLIB_DEBUG_FLAGS) \

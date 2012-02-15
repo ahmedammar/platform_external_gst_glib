@@ -612,7 +612,7 @@ gio-2.0.lib: libgio-2.0.la gio.def
 	lib -machine:@LIB_EXE_MACHINE_FLAG@ -name:libgio-2.0-$(LT_CURRENT_MINUS_AGE).dll -def:gio.def -out:$@
 
 Android.mk: Makefile.am gioenumtypes.h gioenumtypes.c gio-marshal.c
-	androgenizer -:PROJECT glib -:SHARED libgio-2.0 -:TAGS user eng debug \
+	androgenizer -:PROJECT glib -:SHARED libgio-2.0 -:TAGS optional eng debug \
 	 -:SOURCES $(libgio_2_0_la_SOURCES) \
 	 -:CFLAGS $(DEFS) $(CFLAGS) \
 	 -:CPPFLAGS $(CPPFLAGS) $(AM_CPPFLAGS) -DXDG_PREFIX=_gio_xdg\

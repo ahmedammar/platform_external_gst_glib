@@ -343,7 +343,7 @@ libglib_2_0_la_LDFLAGS = $(GLIB_LINK_FLAGS) \
 	-export-dynamic $(no_undefined) $(export_symbols)
 
 Android.mk: Makefile.am $(BUILT_SOURCES)
-	androgenizer -:PROJECT glib -:SHARED libglib-2.0 -:TAGS user eng debug \
+	androgenizer -:PROJECT glib -:SHARED libglib-2.0 -:TAGS optional eng debug \
 	 -:REL_TOP $(top_srcdir) -:ABS_TOP $(abs_top_srcdir) \
 	 -:SOURCES $(libglib_2_0_la_SOURCES) giounix.c gspawn.c \
 	 -:CFLAGS $(DEFS) $(DEFAULT_INCLUDES) $(AM_CFLAGS) $(INCLUDES) $(GLIB_DEBUG_FLAGS) \
