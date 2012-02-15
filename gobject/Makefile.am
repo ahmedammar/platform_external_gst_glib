@@ -232,7 +232,7 @@ libgobjectinclude_HEADERS = $(gobject_target_headers)
 libgobject_2_0_la_SOURCES = $(gobject_target_sources)
 
 Android.mk: Makefile.am $(BUILT_SOURCES)
-	androgenizer -:PROJECT glib -:SHARED libgobject-2.0 -:TAGS eng debug \
+	androgenizer -:PROJECT glib -:SHARED libgobject-2.0 -:TAGS user eng debug \
 	 -:REL_TOP $(top_srcdir) -:ABS_TOP $(abs_top_srcdir) \
 	 -:SOURCES $(libgobject_2_0_la_SOURCES) \
 	 -:CFLAGS $(DEFS) $(DEFAULT_INCLUDES) $(CFLAGS) \
